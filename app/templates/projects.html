@@ -1,0 +1,297 @@
+{# Purpose: This template will load the user's specific project that they have created in the previous
+            state. POST and GET requests can be made to access this resource. POST is sent from the profile
+            view to the projects view. The projects view has access to the project object and renders this
+            page with that object (project.id).
+            GET is sent from the Profile html (contentsignedin.html) as the user would click their project
+            link. The projects view is then ran with the project object which renders this page. 
+            
+            We update/write content here and then post to the add_content view. We have access to the 
+            project object#}
+
+
+
+{% extends "base.html" %}
+{% block title %} Profile {% endblock %}
+{% block css %} <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> {% endblock%}
+{% block cssbackup %} <link rel="stylesheet" href="{{ url_for('static', filename='contentstyles.css') }}"> {% endblock%}
+{% block header %}
+    {% include "nav_in.html" %}
+{% endblock %}
+
+{% block main %}
+<div style="background-color: rgb(254, 254, 254); padding: 10px;">
+    <div style="display: flex; flex-direction: column;justify-content: center; align-items: center;">
+        <h1>{{ project.title }}</h1>
+        <p>A {{ project.project_type }}</p>
+
+        <!--__________________clock, and word count________________-->
+        <div class="d-flex align-items-center" style="margin-bottom: 0; width: 100%;">
+            <!-- Time display with icon -->
+            <i class="fas fa-clock" style="font-size: 20px; margin-right: 5px;"></i>
+            <span id="current-time" class="fs-6"></span>
+
+            <p class="word-count" style="margin-bottom: 0; margin-left: 20px;">
+                <span id="wordCount">0</span> words
+            </p>
+        </div>
+
+    </div>
+    
+    <hr>
+
+    {% if project.project_type == "novel" %}
+        <!--i took out: project_id=project.id)-->
+    <form method="POST" action="{{ url_for('add_content') }}">
+        <!-- Improved: Now handles both adding and editing chapters -->
+        <input type="hidden" name="chapter_id" id="chapter_id" value="{{ chapter.id if chapter else 'new' }}">
+        <input type="hidden" name="project_id" value="{{ project.id }}">
+    
+        <div class="project-container">
+            <div class="right-pform">
+                <div class="chap" style="display: flex; flex-direction: column; align-items: center;">
+                    <!-- Chapter Title Input -->
+                    <label for="chapter_title"></label>
+                    <input type="text" name="title" id="chapter_title" required placeholder="Chapter Title" style="margin-bottom: 30px;"
+                           value="{{ chapter.title if chapter else '' }}">
+                </div>
+    
+                <!-- Chapter Content Input -->
+                <label for="chapter_content"></label>
+                <textarea name="content" id="chapter_content" rows="5" required placeholder="Start typing here"
+                          style="margin-left: 3px; margin-top: 50px;">{{ chapter.content if chapter else '' }}</textarea>
+            </div>
+    
+            <div class="left-pform" style="background-color: rgb(254, 254, 254);"> 
+                <div></div>
+                <div class="card1">
+                    <img src="{{ url_for('static', filename='uploads/' + project.image) }}" alt="Project Image" id="books">
+                    <div class="bookinfo">
+                        <h3>{{ project.title }}</h3>
+                        <h4>{{ current_user.username }}</h4>
+                        <p>{{ project.genre }}</p>
+                        <h3>{{ project.price }}</h3>
+                        <button type="submit">Save Chapter</button>
+                    </div>
+                    
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action">
+                            Pin this {{ project.project_type }}
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action">Publish</button>
+                        <button type="button" class="list-group-item list-group-item-action">Edit book info</button>
+                        <form method="POST" action="{{ url_for('delete_project', project_id=project.id) }}" style="display: inline;">
+                            <button type="submit" class="list-group-item list-group-item-action">
+                                    
+                                Delete
+                            </button>
+                        </form>
+                        <button type="button" class="list-group-item list-group-item-action">Subscribe</button>
+                        <button type="button" class="list-group-item list-group-item-action" disabled>{{ current_user.username }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+
+        <h3>Chapters</h3>
+        <ul style="list-style: none;">
+            {% for chapter in content %}
+                <li class="li-pages" onclick="loadChapter('{{  chapter.id }}', '{{ chapter.title }}', `{{ chapter.content | safe }}`)" style="cursor: pointer;">
+                    <strong>{{ chapter.title }} </strong>{{ project.synopsis }}
+                </li>
+            {% endfor %} 
+        </ul>
+
+        <div class="page-footer" style="display: flex; justify-content: center; align-items: center; width: 100%;">
+            {% if current_page_number %}
+                <p>Page {{ current_page_number }}</p>
+            {% else %}
+                <p>Start your first page!</p>
+            {% endif %}
+        </div>
+
+        
+        
+        
+    {% elif project.project_type == "short_story" %}
+        
+
+        <form method="POST" action="{{ url_for('add_content', project_id=project.id) }}">
+            <!--<input type="hidden" name="pageS_id" id="pageS_id">-->
+            <input type="hidden" name="pageS_id" id="pageS_id" value="{{ current_page.id if current_page else '' }}">
+            <!--<p>Debug: Page ID being submitted: {{ current_page.id if current_page else 'None' }}</p>-->
+
+
+            <div class="project-container">
+
+                <div class="right-pform">
+                   
+                    
+                    <!--_____________Display of page content if page is not empty______________-->
+                    <label for="page_content"></label>
+                    <!--<p>Debig: Page ID being submitted: {{ current_page.id }}</p>-->
+                    <textarea name="content" id="page_content" rows="5" required placeholder="Start typing here" style="margin-left: 3px; ">           
+                        {{ current_page.content.strip() if current_page else '' }}
+                    </textarea>
+                </div>
+    
+                <!--_____________Card Information______________-->
+                <div class="left-pform" style="background-color: rgb(254, 254, 254);">
+                    <div class="card1">
+                        <img src="{{ url_for('static', filename='uploads/' + project.image) }}" alt="Project Image" id="books">
+                        <div class="bookinfo">
+                            <h3>{{ project.title }}</h3>
+                            <h4>{{ current_user.username }}</h4>
+                            <p>{{ project.genre }}</p>
+                            <h3>{{ project.price }}</h3>
+                            <button type="submit">Save Page</button>
+                        </div><!--end of bookinfo
+                        <hr>-->
+
+                        <div class="list-group">
+                            <button type="button" class="list-group-item list-group-item-action" style="background-color: rgb(243, 238, 238)">
+                                Pin this {{ project.project_type }}
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action">Publish</button>
+                            <button type="button" class="list-group-item list-group-item-action">Edit book info</button>
+                            <form method="POST" action="{{ url_for('delete_project', project_id=project.id) }}" style="display: inline;">
+                                <button type="submit" class="list-group-item list-group-item-action"
+                                        >
+                                    Delete
+                                </button>
+                            </form>
+                            <button type="button" class="list-group-item list-group-item-action">Subscribe</button>
+                            <button type="button" class="list-group-item list-group-item-action" disabled>{{ current_user.username }}</button>
+                        </div>
+                        
+                    </div> <!--end of card1-->
+                </div>
+            </div>
+
+        </form> 
+
+        <h3>Story Pages</h3>
+        <ul style="list-style: none;">
+            {% for page in content.items %}
+            <li class="li-pages" onclick="loadPages('{{ page.id }}', '', '{{ page.content | safe }}')" style="cursor: pointer;">
+                <strong>{{ page.title | default('Page') }}</strong>
+            </li>
+            {% endfor %}
+        </ul>
+   
+         
+
+    {% elif project.project_type == "poem" %}
+        
+
+        <form method="POST" action="{{ url_for('add_content', project_id=project.id) }}">
+            <!--<input type="hidden" name="poem_id" id="poem_id"> -->
+            <input type="hidden" name="poem_id" id="poem_id" value="{{ current_page.id if current_page else '' }}">
+            <div class="project-container">
+                
+
+
+                <div class="right-pform">
+                    <label for="poem_content"></label>
+                    <textarea name="content" id="poem_content" rows="5" required placeholder="Start typing here" style="margin-left: 3px; ">
+                        {{ current_page.content.strip() if current_page else '' }}
+                    </textarea>
+                </div>
+    
+                <div class="left-pform" style="background-color: rgb(254, 254, 254);">
+                    <div class="card1">
+                        <img src="{{ url_for('static', filename='uploads/' + project.image) }}" alt="Project Image" id="books">
+                        <div class="bookinfo">
+                            <h3>{{ project.title }}</h3>
+                            <h4>{{ current_user.username }}</h4>
+                            <p>{{ project.genre }}</p>
+                            <h3>{{ project.price }}</h3>
+                            <button type="submit">Save Poem</button>
+                        </div><!--end of bookinfo
+                        <hr>-->
+
+                        <div class="list-group">
+                            <button type="button" class="list-group-item list-group-item-action">
+                                Pin this {{ project.project_type }}
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action">Publish</button>
+                            <button type="button" class="list-group-item list-group-item-action">Edit book info</button>
+                            <form method="POST" action="{{ url_for('delete_project', project_id=project.id) }}" style="display: inline;">
+                                <button type="submit" class="list-group-item list-group-item-action"
+                                        >
+                                    Delete
+                                </button>
+                            </form>
+                            <button type="button" class="list-group-item list-group-item-action">Subscribe</button>
+                            <button type="button" class="list-group-item list-group-item-action" disabled>{{ current_user.username }}</button>
+                        </div>
+                        
+                    </div> <!--end of card1-->
+                </div>
+            </div>
+
+        </form>
+
+        <h3>Poem</h3>
+        <ul style="list-style: none;">
+            {% for poem in content %}
+            <li class="li-pages" onclick="loadPoems('{{  poem.id }}', '', `{{ poem.content | safe }}`)" style="cursor: pointer;"">
+                <strong>{{ poem.title if poem.title else 'Poem' }} </strong>{{ project.synopsis }}
+            </li>
+            {% endfor %}
+        </ul>
+
+       
+    {% endif %}
+
+   <script>
+        function loadChapter(id, title, content) {
+            document.getElementById("chapter_id").value = id;   // Set the chapter ID
+            document.getElementById("chapter_title").value = title;  // Set the title
+            document.getElementById("chapter_content").value = content;  // Set the content
+        }
+        function loadPages(id, title, content) {
+            document.getElementById("pageS_id").value = id;
+            document.getElementById("page_content").value = content;
+        }
+
+        function loadPoems(id, title, content) {
+            document.getElementById("poem_id").value = id;
+            document.getElementById("poem_content").value = content;
+        }
+
+        function countWords(text) {
+        // Remove extra spaces and count words
+        return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+        }
+
+        document.getElementById("chapter_content").addEventListener("input", function() {
+            let wordCount = countWords(this.value);
+            document.getElementById("wordCount").textContent = wordCount;
+        });
+
+
+
+
+    </script>
+
+</div><!--end of container div-->
+
+
+
+{% endblock %}
+
+{% block footer %} 
+    {% include "footer.html" %} 
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}
+
+
+
+
+
+{# Remember that we have access to the database book object and it is called projects #}

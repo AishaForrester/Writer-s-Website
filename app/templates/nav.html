@@ -1,0 +1,30 @@
+<div class="navigation_bar">
+
+    <div class="menu">
+         
+        <div class="list1">
+            <h5 class="option1"><a href="{{ url_for('login') }}">Home</a></h5> 
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  Genres
+                </a>
+              
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><a class="dropdown-item" href="html/genres/mystery.html">mystery</a></li>
+                  <li><a class="dropdown-item" href="html/genres/fantasy.html">fantasy</a></li>
+                  <li><a class="dropdown-item" href="html/genres/romance.html">romance</a></li>
+                  <li><a class="dropdown-item" href="html/genres/young_adult.html">young_adult</a></li>
+                  <li><a class="dropdown-item" href="html/genres/children.html">children</a></li>
+                  <li><a class="dropdown-item" href="html/genres/history.html">history</a></li>
+                  <li><a class="dropdown-item" href="html/genres/travel.html">travel</a></li>
+                  <li><a class="dropdown-item" href="html/genres/art.html">art</a></li>
+                </ul>
+            </div>
+            <li class="option1"><h5><a href="{{ url_for('login') }}">Writer's Corner</a></h5></li>
+            <li class="option1" id="donatered"><h5><a href="{{ url_for('login') }}">Donate<i class="fas fa-heart"></i></a></h5></li>
+            <li class="option1"><h5><a href="{{ url_for('login') }}">Sign in</a></h5></li>  
+        </div>
+        <h5 class="option1"><a href="{{ url_for('login') }}">Publish</a></h5>  
+        <h5 class="option2"><a href="{{ url_for('login') }}">My cart <i class="fas fa-shopping-cart"></i></a></h5>
+        
+    </div> <!--end of menu -->

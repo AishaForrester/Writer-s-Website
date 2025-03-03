@@ -1,0 +1,27 @@
+{# Purpose: This template is apart of the projects.html template and will show the projects itself  #}
+
+
+{% if project %}
+    <h2>{{ project.title }}</h2>
+    <p>{{ project.synopsis }}</p>
+
+    {% if project.project_type == "book" %}
+        <h3>Chapters</h3>
+        {% for chapter in content %}
+            <h4>{{ chapter.chapter_number }}: {{ chapter.title }}</h4>
+            <p>{{ chapter.content }}</p>
+        {% endfor %}
+    {% elif project.project_type == "short_story" %}
+        <h3>Story Pages</h3>
+        {% for page in content %}
+            <p>{{ page.content }}</p>
+        {% endfor %}
+    {% elif project.project_type == "poem" %}
+        <h3>Poem</h3>
+        {% for line in content %}
+            <p>{{ line.content }}</p>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    <p>No project selected</p>
+{% endif %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %} Signup {% endblock %}
+{% block css %} <link rel="stylesheet" href="{{ url_for('static', filename='signupstyles.css') }}">  {% endblock%}
+
+
+{% block main %} 
+<div class="main-container">
+    <div class="sign-up">
+        <h3>WHATAREAD</h3>
+        <div class="form-container">
+            {% from "bootstrapformlogic.html" import render_field %}
+            {% include "flash-messages.html" %}
+            <form  action="{{ url_for('signup') }}" method="POST" enctype="multipart/form-data">
+            
+            
+                {{ form.csrf_token }}
+                {{ render_field(form, form.fname) }}
+            
+                {{ render_field(form, form.lname) }}
+            
+                {{ render_field(form, form.email) }}
+           
+                {{ render_field(form, form.password) }}
+            
+                {{ render_field(form, form.confirm) }}
+            
+                {{ render_field(form, form.username) }}
+            
+                {{ render_field(form, form.age) }}
+           
+                {{ render_field(form, form.gender) }}
+                        
+                {{ render_field(form, form.profile_image) }}
+                       
+                {{ render_field(form, form.bio)}}
+            
+            
+            </form>
+            <button class="bttn">sign in</button>
+        </div><!--form-container-->
+        <p>New to whataread? <a href="{{ url_for('signup') }}">sign up</a></p>
+        <p style="margin-left: 10px;">By continuing, you agree to whataread's <a href="">Conditions of Use</a> and <a href="">Privacy Notice</a>.</p>
+    </div><!--sign-in-->
+</div><!--main-container-->
+{% endblock %}
+
+
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                {{ render_field(form, form.bio) }}

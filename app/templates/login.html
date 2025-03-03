@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %} Signin {% endblock %}
+
+{% block css %}  
+    <link rel="stylesheet" href="{{ url_for('static', filename='loginstyles.css') }}">    
+{% endblock%}
+
+{% block main %} 
+    <div class="main-container">
+        <div class="sign-in">
+            <h3>Ink & Coffee</h3>
+            <div class="form-container">
+                {% from "bootstrapformlogic.html" import render_field %}
+                <form  action="{{ url_for('login') }}" method="POST" enctype="multipart/form-data">
+                
+                <div class="uname-c">
+                    {{ form.csrf_token }}
+                    {{ render_field(form, form.username) }}
+                </div><!--uname-c-->
+
+                <div class="uname-c">
+                    {{ render_field(form, form.password) }}
+                </div><!--pname-c-->
+
+
+                <div class="pname-c">
+                    {{ render_field(form, form.remember_me) }}
+                </div><!--pname-c-->
+
+                
+                
+                
+                
+                
+
+                </form>
+                <button class="bttn">sign in</button>
+            </div><!--form-container-->
+            <p>New to whataread? <a href="{{ url_for('signup') }}">sign up</a></p>
+            <p style="margin-left: 10px;">By continuing, you agree to whataread's <a href="">Conditions of Use</a> and <a href="">Privacy Notice</a>.</p>
+        </div><!--sign-in-->
+    </div><!--main-container-->
+{% endblock %}
+    

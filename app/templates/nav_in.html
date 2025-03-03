@@ -1,0 +1,14 @@
+<!--navigation bar that is shown once a user is successfully logged into the system-->
+
+<div class="navigation_bar">
+     
+      <div class="menu">
+        <h4 class="company-name"><i class="fas fa-book-open" style="margin-right: 2px;"></i>Ink & Coffee</h4> 
+          <h5 class="nav-in-headers"><a href="{{ url_for('login') }}"><i class="fas fa-home" style="margin-right: 2px;"></i>Dashboard</a></h5> 
+          <h5 class="nav-in-headers"><a href="{{ url_for('login') }}"><i class="fas fa-search" style="margin-right: 2px;"></i>Explore</a></h5>
+          <h5 class="nav-in-headers"><a href="{{ url_for('login') }}"><i class="fas fa-shopping-cart" style="margin-right: 2px;"></i>My cart</a></h5> 
+          <h5 class="nav-in-headers"><a href="{{ url_for('login') }}"><i class="fas fa-user" style="margin-right: 2px;"></i>Profile</a></h5> 
+          <h5 class="nav-in-headers"><a href="{{ url_for('logout') }}">Sign out</a></h5> 
+      </div> <!--end of menu-->
+      
+</div> <!-- End of navigation_bar -->

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} Signin {% endblock %}
+{% block css %} <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> {% endblock%}
+
+{% block header %}
+    {% include "nav.html" %}
+{% endblock %}
+
+{% block main %} 
+    {% from "bootstrapformlogic.html" import render_field %}
+    <form class="form-group row" action="{{ url_for('login') }}" method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {{ render_field(form, form.username) }}
+        {{ render_field(form, form.password) }}
+    
+        <input class="btn btn-primary" type="submit" value="Sign Up">
+    </form>
+
+
+
+{% block footer %} include a footer html {% endblock %}
+{% endblock %}

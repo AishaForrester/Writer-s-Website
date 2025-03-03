@@ -1,0 +1,47 @@
+{% macro error_check(form, field) %}
+    {% if form.FormSubmitted %}
+        {% if field.errors %} has-error {% else %}has-success{% endif %}
+    {% endif %}
+{% endmacro %}
+
+
+
+{% macro fieldValid(form, field) %}
+    {% if form.FormSubmitted %}
+        {% if field.errors %}
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% else %}
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+
+
+{% macro render_field(form, field) %}
+{% if field %}
+    <div class="form-group">
+        <label  for="{{ field.id }}" class="center-text">
+            {{ field.label.text }}
+        </label>
+        <div class="center-text">
+            {% if 'StringField' in field.type or 'PasswordField' in field.type or 'IntegerField' in field.type or 'DecimalField' in field.type or 'SelectField' in field.type or 'FileField' in field.type or 'BooleanField' in field.type %}
+            {{ field(class="center") }}
+            {{ fieldValid(form, field) }} 
+            {% if field.errors %}
+                <span class="help-block center-text">
+                    {% for error in field.errors %}
+                        <span class="control-label">{{ error }}</span><br>
+                    {% endfor %}
+                </span> <!-- Close the help-block div properly -->
+            {% endif %}
+            {% endif %}
+        </div>
+    
+        
+{% endif %}
+
+
+
+
+{% endmacro %}

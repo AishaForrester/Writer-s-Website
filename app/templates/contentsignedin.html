@@ -1,0 +1,161 @@
+
+<div class="contentSection" style="background-color: #ebeeee;">
+    <div class="image-backdrop">
+        <div class="text-overlay">{% if current_user.is_authenticated %}
+            <h4>Welcome back, {{ current_user.username }}</h4>
+            {% endif %}
+        </div>  
+    </div>
+    
+    
+ 
+    <div class="container">
+
+        <div class="row"> 
+
+            <!--First Column (Larger Card-Projects)-->
+            <div class="col-12 mt-4 col-md-6 col-lg-8"> <!-- Controls the card's width -->
+            <div class="card">
+              <div class="card-body">
+
+                <!--My Projects header and create option-->
+                <div class="card-proj" style="display: flex; justify-content: space-between; position: relative;">
+                    <h5 class="card-title">My Projects</h5>
+                    <div id="createText" style="cursor: pointer; font-size: 1.2rem; color: black;">+ Create</div>
+                </div> <!--end of card-proj-->
+
+                <hr class="my-4">
+
+                
+
+                
+                
+            
+                {% if projects | length > 0 %}
+                <div class="card-text">
+                    <ul class="booklist">
+                        {% for project in projects %}
+                            <li class="book-item">
+                                <a href="{{ url_for('projects', project_id = project.id) }}"><span class="book-title">{{ project.title }}</span></a>
+                                <span class="book-time">{{ project.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="#"><p class="card-text"><small class="text-body-secondary">See all</small></p></a>
+                </div>
+                {% else %}
+                    <p>No projects yet</p>
+                {% endif %}
+                
+                
+            </div> <!--end of card body-->
+              <!--<img src="{{ url_for('static', filename='../static/images1/profiledash.webp') }}" class="card-img-top" alt="..." style="width: 100%; height: 200px; object-fit: cover;">-->
+            </div> <!--end of card div-->
+
+        
+            </div> <!--Project-->
+            
+
+            <!--Second column (smaller card-word count)-->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4" style="margin-left: 10px; margin-right: 10px;">
+            <div class="card" style="width: 24rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Word Count</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                    <p class="card-text">Some quick example text...</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+            </div><!-- end of word count column -->
+
+            
+
+            
+        </div> <!--end of row justify-content-between for Projects and word count-->
+
+        <div class="row"> <!--"row justify-content-between"-->
+
+            <!--First Column (Communities)-->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4" style="margin-right: 300px;"> 
+                <div class="card" style="width: 30rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Communities</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                        <p class="card-text">Some quick example text...</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+                </div><!-- Communities end-->
+    
+                <!--Second Column (Blog Post)-->
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4">
+                <div class="card" style="width: 24rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Blog Post</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title...</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+                </div><!-- Blog Post end -->
+    
+        </div><!--end of row justify-content-between for Communities and Blog Post sections"-->
+
+
+
+
+        <!-- Modal (Pop-up form) for use with app.js -->
+        <div id="popupModal" class="popup-modal" style="display: none;">
+            <div class="popup-content">
+                <span class="close" id="closePopup">&times;</span>
+                <h2>Create New Project</h2>
+                
+
+                <div>
+                    {% from "bootstrapformlogic.html" import render_field %}
+                    
+                    <form action="{{ url_for('profile') }}" method="POST" enctype="multipart/form-data">
+
+                        {{ form.hidden_tag() }}
+
+                        
+                        <label for="projectType">Project Type:</label>
+                        <select name="project_type" id="projectType" required>
+                            <option value="none">--select--</option>
+                            <option value="short_story">Short Story</option>
+                            <option value="novel">Novel</option>
+                            <option value="poem">Poem</option>
+                        </select>
+
+
+
+                        
+
+                        {{ render_field(form, form.title) }}
+                        
+                        {{ render_field(form, form.synopsis) }}
+                        
+                        {{ render_field(form, form.price) }}
+                       
+                        {{ render_field(form, form.genre) }}
+                      
+                        {{ render_field(form, form.image) }}
+
+                        
+                        
+
+                        <button type="submit">Submit</button>
+                    </form>
+                </div> <!--end of form-container-->
+            </div> <!--end of pop up content-->
+        </div> <!--end of pop up modal-->
+
+        
+    
+    </div><!--end of container-->
+</div> <!-- End of contentSection -->
+ 
+

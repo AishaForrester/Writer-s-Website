@@ -1,0 +1,29 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+//Note that all of bootstrap is included in the main.scss file.
+// Include any default variable overrides here (though functions won't be available)
+
+$primary: rgb(225, 157, 215); //here we override the primary color of bootstrap to pink
+$secondary: rgb(192, 26, 238, 0.8); //here we override the secondary color of bootstrap to light blue
+
+
+
+
+@import "../static/node_modules/bootstrap/scss/bootstrap";
+
+// Then add additional custom code here
+.dropdown .btn-secondary {
+    background-color: $secondary !important; /* Use !important to override */
+    border: none;
+    border-color: none;
+    box-shadow: none;
+    margin-right: 120px;
+    color: white;
+    font-size: 1.2em;
+}
+.dropdown .btn-secondary:hover {
+    background-color: darken($secondary, 10%) !important;
+    border-color: darken($secondary, 10%) !important;
+    color: pink;
+}

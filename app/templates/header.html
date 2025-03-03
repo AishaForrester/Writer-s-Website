@@ -1,0 +1,53 @@
+<!--navigation bar and moving slide shown when user is logged out of system, ie when they first enter the
+website-->
+
+<div class="navigation_bar">
+
+    <div class="menu">
+         
+        <div class="list1">
+            <h5 class="option1"><a href="{{ url_for('home') }}">Home</a></h5> 
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  Genres
+                </a>
+                
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><a class="dropdown-item" href="html/genres/mystery.html">mystery</a></li>
+                  <li><a class="dropdown-item" href="html/genres/fantasy.html">fantasy</a></li>
+                  <li><a class="dropdown-item" href="html/genres/romance.html">romance</a></li>
+                  <li><a class="dropdown-item" href="html/genres/young_adult.html">young_adult</a></li>
+                  <li><a class="dropdown-item" href="html/genres/children.html">children</a></li>
+                  <li><a class="dropdown-item" href="html/genres/history.html">history</a></li>
+                  <li><a class="dropdown-item" href="html/genres/travel.html">travel</a></li>
+                  <li><a class="dropdown-item" href="html/genres/art.html">art</a></li>
+                </ul>
+            </div>
+            <li class="option1"><h5><a href="{{ url_for('login') }}">Writer's Corner</a></h5></li>
+            <li class="option1" id="donatered"><h5><a href="{{ url_for('login') }}">Donate<i class="fas fa-heart"></i></a></h5></li>
+            <!--<li class="option1"><h5><a href="{{ url_for('login') }}">Sign in</a></h5></li>  -->
+        </div>
+        <h5 class="option1"><a href="{{ url_for('login') }}">Publish</a></h5>  
+        <h5 class="option2"><a href="{{ url_for('login') }}">My cart <i class="fas fa-shopping-cart"></i></a></h5>
+        <h5 class="option1"><a href="{{ url_for('login') }}">Sign in</a></h5>  
+        
+    </div> <!--end of menu -->
+
+    
+    <div class="intro">
+        <div class="text" id="slide1">
+            <h1>WELCOME TO THE GOOD STUFF. 100% FREE</h1>
+            <h4>Over 50,000 books, from all genres and varying writers, awaiting your perusal. Enjoy. </h4>
+        </div>
+        <div class="text" id="slide2">
+            <h3>DO YOU HAVE A BURNING STORY TO TELL?</h3>
+            <p>We got you. You can publish your own stories right here with for thousands of interesting minds</p>
+        </div>
+        <div class="text" id="slide3">
+            <h3>FREE AND DISCOUNTED BESTSELLERS </h3>
+            <h4>From all genres, come and explore our library</h4>
+            <p class="explore"><a href="{{ url_for('signup') }}">sign up</a></p> 
+        </div>
+    </div> <!--end of intro-->
+
+</div> <!--end of navigation_bar-->

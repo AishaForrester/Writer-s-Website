@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+
+
+{% block css %}  
+    <link rel="stylesheet" href="{{ url_for('static', filename='contentstyles.css') }}">    
+{% endblock%}
+
+{% block main %}
+<div class="content">
+        
+    <div class="searchfield">
+        <input type="text" placeholder="Search for books, authors, genres">
+        <button class="btn">Search</button>
+    </div> <!--end of searchfield-->
+
+    <div class="card">
+        <div class="card1">
+            <a href="#"><img src="../static/images1/soul.jpg" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>Soul</h3>
+                <h4>Olivia Wilson</h4>
+                <p>Mystery</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>17.50</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+        
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/blackhearts.jpg" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>Black Hearts</h3>
+                <h4>Jenna Woods</h4>
+                <p>Fantasy, Mystery</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>FREE</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div> <!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/AMIL.webp" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>A Million To One</h3>
+                <h4>Tony Faggioli</h4>
+                <p>History, Travel</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>FREE</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/really.jpg" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>really good, actually</h3>
+                <h4>Monica Heisey</h4>
+                <p>Romance, Comics</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>20.25</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/FH.jpg" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>With The Fire On High</h3>
+                <h4>Elizabeth Acevedo</h4>
+                <p>Young Adult</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>FREE</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/InTheBeautifulCountry_1.jpg" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>In the Beautiful Country</h3>
+                <h4>Jane Kuo</h4>
+                <p>Children's, Travel</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>7.50</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/recip.webp" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>A Recipe For Magic</h3>
+                <h4>K.C. Lapointe </h4>
+                <p>Romance, Christian</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>FREE</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/cap.webp" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>Capitally Matched</h3>
+                <h4>Rachel Holm</h4>
+                <p>Young Adult, Romance</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>8.25</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/lone.webp" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>Lone Wolf Adventure</h3>
+                <h4>Ermengard Nausicaa</h4>
+                <p>Adventure, Mystery</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>FREE</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/ap.jpeg" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>A Part of You</h3>
+                <h4>Lynden Renwick</h4>
+                <p>Romance, Young Adult</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>FREE</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/pencil.webp" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>Pencil</h3>
+                <h4>Olivia Wilson</h4>
+                <p>Art, Self help</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>22.50</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/cr.jpg" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                    <h3>The Crying Book</h3>
+                    <h4>Heather Christle</h4>
+                    <p>Self help, Art</p>
+                    <div class="rating">
+                        <span class="star full">&#9733;</span>  <!-- Full star -->
+                        <span class="star full">&#9733;</span>  <!-- Full star -->
+                        <span class="star full">&#9733;</span>  <!-- Full star -->
+                        <span class="star full">&#9733;</span>  <!-- Full star -->
+                        <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                    </div> <!--end of rating-->
+                    <h3>FREE</h3>
+                    <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/roman.webp" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>Roman</h3>
+                <h4>Olivia Wilson</h4>
+                <p>Fantasy, Mystery</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>FREE</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/saga.jpeg" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>Saga</h3>
+                <h4>Brian K. Vaughan</h4>
+                <p>Empowerment, Psychology</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>9.50</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->
+
+
+        <div class="card1">
+            <a href=""><img src="../static/images1/cairo.jpg" alt="book cover" id="books"></a>
+            <div class="bookinfo">
+                <h3>Cairo</h3>
+                <h4>Emotional, Self discovery</h4>
+                <p>Fantasy, Self help</p>
+                <div class="rating">
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star full">&#9733;</span>  <!-- Full star -->
+                    <span class="star half">&#9733;</span>  <!-- Half-filled star -->
+                </div> <!--end of rating-->
+                <h3>17.25</h3>
+                <a href="{{ url_for('login') }}" id="photos-link">read here...</a>
+            </div><!--end of bookinfo-->
+            
+        </div> <!--end of card1-->               
+    </div> <!--end of card-->
+
+    
+
+    <div class="vidblog">
+        <div class="video">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/N24X8kK7H4Q"  title="YouTube video player" 
+            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+        </div> <!--end of video div-->
+        <div class="blog">
+            <h3>FROM OUR BLOG POST <a href="/blog/viewblog.html">(view all)</a></h3>
+            <a href="/blog/viewblog.html"><img src="../static/images1/blogb.png" alt="books" id="blogpic">
+            <h4>BOOK OF THE MONTH</h4></a>
+
+        </div><!--end of blog-->
+    </div><!--vidblog-->
+    
+    <div class="content2">
+        <div class="nextcont">
+            <div class="quotes_next1">
+                <img src="../static/images1/robert_frost.jpg" alt="robert frost" id="quotepics">
+                <p>Two roads diverged in a wood and I-I took the one less travelled by, and that has 
+                    made all the difference. - Robert Frost
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/emily_dickinson.jpg" alt="robert frost" id="quotepics">
+                <p>We never know how high we are til we are called to rise. Then if we are true to form
+                    our statures touch the skies. -Emily Dickinson
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/stephen_king.webp" alt="robert frost" id="quotepics">
+                <p>Description begins in the writer's imagination, but should finish in the reader's. 
+                    -Stephen King
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/w_shakespeare.jpeg" alt="robert frost" id="quotepics">
+                <p>Talking isn't doing. It is a kind of good deed to say well, and yet words are not deed. 
+                    -William Shakespeare
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/mark_t.jpg" alt="robert frost" id="quotepics">
+                <p>Keep away from people who try to belittle your ambitions. Small people always do that,
+                    but the reality geat make you feel that you too, can become great. -Mark Twain
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/anais.jpeg" alt="robert frost" id="quotepics">
+                <p>We write to taste life twice, in the moment and in retrospect. -Anaïs Nin
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/james_baldwin.jpg" alt="robert frost" id="quotepics">
+                <p>All art is a kind of confession more or less oblique. All artists, if they are to survive,
+                    are forced, at last, to tell the whole story; to vomit the anguish up. -James Baldwin
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/richard_branson.jpg" alt="robert frost" id="quotepics">
+                <p>If someone offeres you an amazing opportunity and you're not sure you can do it, say yes
+                    then learn how to do it later. -Richard Branson
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/Herman_Melville.jpg" alt="robert frost" id="quotepics">
+                <p>It is better to fail in originality than to succeed in imitation. -Herman Melville
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/Anton_Chekhov.webp" alt="robert frost" id="quotepics">
+                <p>Don't tell me the moon is shining; show me the glint of light on broken glass. -Anton Chekhov
+                </p>
+            </div> <!--end of next1-->
+
+            <div class="quotes_next1">
+                <img src="../static/images1/Albus_Dumbledore.jpeg" alt="robert frost" id="quotepics">
+                <p>Happiness can be found even in the darkest of times, if one only remembers to turn on the light.
+                    -Albus Dumbledore
+                </p>
+            </div> <!--end of next1-->
+        </div> <!--end of nectcont with quotes-->
+
+
+        <div class="content3">
+            <ul class="qlist">
+                <li class="ql"><a href="/quotes/allquotes.html">Best quotes</a></li>
+                <li class="ql"><a href="/quotes/allquotes.html">Love quotes</a></li>
+                <li class="ql"><a href="/quotes/allquotes.html">Funny quotes</a></li>
+                <li class="ql"><a href="/quotes/allquotes.html">Motivational quotes</a></li>
+                <li class="ql"><a href="/quotes/allquotes.html">Inspirational</a></li>
+                <li class="ql"><a href="/quotes/allquotes.html">Positive quotes</a></li>
+            </ul>
+            <div class="content30">
+                <ul class="qlist">
+                    <li class="ql"><a href="/quotes/allquotes.html">Life quotes</a></li>
+                    <li class="ql"><a href="/quotes/allquotes.html">Friends quotes</a></li>
+                    <li class="ql"><a href="/quotes/allquotes.html">Dad quotes</a></li>
+                    <li class="ql"><a href="/quotes/allquotes.html">Mom quotes</a></li>
+                    <li class="ql"><a href="/quotes/allquotes.html">Family quotes</a></li>
+                    <li class="ql"><a href="/quotes/allquotes.html">Deep quotes</a></li>
+                </ul>
+            </div> <!--end of content30-->
+        </div> <!--end of content3-->
+    </div> <!--end of content 2-->
+
+
+    <div class="next_read">
+
+        <div class="blog_container">
+            <img src="../static/images1/rec1.png" alt="book" id="recpic">
+            <p>Not sure what to read? Well your at the right place. WhatAread is a is a digital hub for 
+            writers and readers alike, allowing unique and life changing stories to be formed and shared. 
+             <a href="{{ url_for('login')}}">sign in for personalized recommendations</a>
+             
+             <span class="new-user-text">New users can <a href="{{ url_for('signup') }}">sign up</a> for free.</span>
+            
+            </p>
+        </div><!--blog_container-->
+        
+        <div class="community">
+            <h3>JOIN OUR COMMUNITY</h3>
+            <p>Meet your people and quiet the world. Joining our community means
+                getting the first peak at out upcoming book releases. involvement, </p>
+            <div class="btn_container">
+                <a href="{{ url_for('login') }}"><button class="btnn">Writer's block</button></a>
+                <a href="{{ url_for('login') }}"><button class="btnn">Reader's club</button></a>
+            </div><!--btn_container-->
+            <h3>CONNECT WITH US</h3>
+            <div class="btn_container">
+                <a href="{{ url_for('login') }}"><button class="btnn">Advertise</button></a>
+                <a href="{{ url_for('login') }}"><button class="btnn">Publish</button></a>
+            </div><!--btn_container-->
+        </div> <!--end of community-->
+         
+
+    </div> <!--end of nextread-->   
+</div> <!--end of content class-->
+{% endblock %}

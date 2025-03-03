@@ -1,0 +1,185 @@
+<!--add_content
+@app.route('/api/users/projects/add-content', methods=['POST'])
+@login_required
+def add_content():
+    print("Received form data:", request.form)  # Debugging print statement
+    project_id = request.args.get('project_id', type=int)
+    project = Projects.query.get_or_404(project_id)  # Ensure project exists
+
+    chapter_id = request.form.get("chapter_id")  # Get the chapter ID if it's an edit
+    st_id = request.form.get("pageS_id")  # Get the page ID if it's an edit
+    po_id = request.form.get("poem_id")  # Get the poem ID if it's an edit
+    content_text = request.form.get('content', '').strip()
+    title = request.form.get('title')  # Only for chapters
+
+    """if not content_text:
+        flash("Content cannot be empty!", "danger")
+        return redirect(url_for('projects', project_id=project_id))"""
+
+    try:
+        if project.project_type == "novel":
+            if chapter_id:  
+                # **Update existing chapter**
+                chapter = Chapter.query.get(chapter_id)
+                if chapter and chapter.book_id == project.id:
+                    chapter.title = title
+                    chapter.content = content_text
+
+                    db.session.add(chapter)  # Ensure page update is tracked
+                    db.session.commit()  # Save changes to DB
+                    flash("Content saved successfully!", "success")
+                else:
+                    flash("Chapter not found or unauthorized!", "danger")
+                    return redirect(url_for('projects', project_id=project_id))
+            else:
+                # **Create new chapter**
+                new_chapter = Chapter(book_id=project.id, title=title, content=content_text)
+                db.session.add(new_chapter)
+                db.session.commit()
+                flash("Content saved successfully!", "success")
+
+        elif project.project_type == "short_story":
+            new_page_number = 1  # Default page number
+
+            if st_id:
+                page = Page.query.get(st_id)
+                if page and page.story_id == project.id:
+                    print(f"updating page id {st_id}") #debugging
+                    #page.content = content_text update page content
+
+                    # Store the page number before deleting
+                    #page_number = page.page_number
+                    page.content = content_text
+                    db.session.commit()
+                    flash("Content saved successfully!", "success")
+                    new_page_number = page.page_number #keep the same page number
+
+                    print(f"Updated content: {page.content}")  # Debugging
+                
+                    #db.session.delete(page)
+                    #db.session.commit() #ensure deletion before adding new versiom
+
+                    #new_page = Page(story_id=project.id, content=content_text, page_number=page_number)
+                    #db.session.add(new_page)  # Ensure page update is tracked
+                    #db.session.commit()   #Save changes to DB
+
+                    #flash("Content saved successfully!", "success")
+                    #new_page_number = page_number
+                else:
+                    flash("Page not found or unauthorized!", "danger")
+                    return redirect(url_for('projects', project_id=project_id))
+            else:
+                 # Get total pages to determine the next page number
+                total_pages = Page.query.filter_by(story_id=project.id).count()
+                new_page_number = total_pages + 1  # Next page number
+
+
+                print("creating new page")
+                print("Creating a new page")  # Debugging
+                #Page.query.filter_by(story_id=project.id).delete() #delete all existing pages
+
+                new_page = Page(story_id=project.id, content=content_text, page_number=new_page_number)
+                db.session.add(new_page)
+                db.session.commit()
+                flash("New page added successfully!", "success")
+                print(f"New Page ID: {new_page.id}")  # Debugging
+
+        elif project.project_type == "poem":
+            new_page_number = 1  # Default page number
+
+            if po_id:
+                poem = Poem.query.get(po_id)
+                if poem and poem.poem_id == project.id:
+                    #poem.content = content_text
+                    print(f"updating page id {po_id}") #debugging
+
+                    poem.content = content_text
+                    db.session.commit()  # Save changes to DB
+                    flash("Content saved successfully!", "success")
+                    #new_page_number = poem.page_number   Keep the same page number
+                    
+
+                    print(f"Updated content: {poem.content}")  # Debugging
+
+                    #db.session.add(poem)  # Ensure page update is tracked
+                    #db.session.commit()  # Save changes to DB
+                    #flash("Content saved successfully!", "success")
+                    return redirect(url_for('projects', project_id=project.id, page=poem.page_number))  # ✅ Stay on the same page
+                else:
+                    flash("Poem not found or unauthorized!", "danger")
+                    return redirect(url_for('projects', project_id=project_id))
+            else:
+                # Get total pages to determine the next page number
+                total_pages = Poem.query.filter_by(poem_id=project.id).count()
+                new_page_number = total_pages + 1  # Next page number
+
+                print("Creating a new poem")  # Debugging
+
+                poempage = Poem(poem_id=project.id, content=content_text, page_number=new_page_number)
+                db.session.add(poempage)
+                db.session.commit()
+                flash("New poem added successfully!", "success")
+                return redirect(url_for('projects', project_id=project.id, page=poempage.page_number))  # ✅ Redirect to new page
+                #print(f"New Poem ID: {new_page_number.id}")  # Debugging
+
+                """new_poem = Poem(poem_id=project.id, content=content_text)
+                db.session.add(new_poem)
+                db.session.commit()
+                flash("Content saved successfully!", "success")"""
+
+        """db.session.commit()
+        flash("Content saved successfully!", "success")"""
+
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error saving content: {e}", "danger")
+
+    #Get the current page for the pagination (if any)
+    #page = request.args.get('page', 1, type=int)
+
+    #return redirect(url_for('projects', project_id=project.id, page=new_page_number ))
+    #we called the projects view and gave them the current page number to redirect to the same page
+
+
+
+    login view
+
+    """@app.route('/api/users/projects/add-content', methods=['POST'])
+@login_required
+def add_content():
+    project_id = request.args.get('project_id', type=int)
+    project = Projects.query.get_or_404(project_id)  # Ensure project exists
+
+    chapter_id = request.form.get("chapter_id") #get the chapter ID if any
+    content_text = request.form.get('content')
+    title = request.form.get('title')  # Only for chapters
+
+    if not content_text:
+        flash("Content cannot be empty!", "danger")
+        return redirect(url_for('projects', project_id=project_id))
+
+    try:
+        if project.project_type == "novel":
+            new_chapter = Chapter(book_id=project.id, title=title, content=content_text)
+            db.session.add(new_chapter)
+
+        elif project.project_type == "short_story":
+            new_page = Page(story_id=project.id, content=content_text)
+            db.session.add(new_page)
+
+        elif project.project_type == "poem":
+            new_poem = Poem(poem_id=project.id, content=content_text)
+            db.session.add(new_poem)
+
+        db.session.commit()
+        flash("Content added successfully!", "success")
+
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error saving content: {e}", "danger")
+
+    return redirect(url_for('projects', project_id=project.id))
+"""
+     
+   
+-->
