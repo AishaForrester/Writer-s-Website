@@ -1,5 +1,16 @@
-"""This class is my user classes, which is used to represent user objects
-that will be stired in the database. """
+""" ________________Models__________________
+
+*userAccount
+*userBooks
+*Tag
+*BookTags
+*Projects
+*Chapter
+*Page
+*Poem
+*BookTags
+
+ """
 
 from . import db, bcryptHash
 from flask_login import  UserMixin
