@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .content { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        .pagination { margin-top: 15px; text-align: center; }
+        .pagination a { margin: 0 5px; padding: 8px 12px; text-decoration: none; border: 1px solid #ddd; }
+        .pagination a.active { background-color: #007bff; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ project.title }} ({{ project.project_type }})</h1>
+        <p><strong>Genre:</strong> {{ project.genre }}</p>
+        <p><strong>Synopsis:</strong> {{ project.synopsis }}</p>
+        <p><strong>Price:</strong> ${{ "%.2f"|format(project.price) if project.price else "Free" }}</p>
+        <hr>
+
+        {% if content %}
+            <div class="content">
+                {% if project.project_type == "novel" %}
+                    <h3>Chapter {{ current_page.chapter.chapter_number }}: {{ current_page.chapter.title }}</h3>
+                {% elif project.project_type == "short_story" %}
+                    <h3>Page {{ current_page.page_number }}</h3>
+                {% elif project.project_type == "poem" %}
+                    <h3>Poem {{ current_page.id }}</h3>
+                {% endif %}
+                
+                <p>{{ current_page.content }}</p>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="pagination">
+                {% if content.has_prev %}
+                    <a href="{{ url_for('projects', project_id=project.id, page=content.prev_num) }}">Previous</a>
+                {% endif %}
+                
+                <span>Page {{ current_page_number }} of {{ content.pages }}</span>
+
+                {% if content.has_next %}
+                    <a href="{{ url_for('projects', project_id=project.id, page=content.next_num) }}">Next</a>
+                {% endif %}
+            </div>
+
+        {% else %}
+            <p>No content available for this project.</p>
+        {% endif %}
+    </div>
+
+    <hr>
+<h2>Add Content</h2>
+<form action="{{ url_for('add_content') }}" method="POST">
+    <input type="hidden" name="project_id" value="{{ project.id }}">
+
+    {% if project.project_type == "novel" %}
+        <label for="chapter_id">Select Chapter:</label>
+        <select name="chapter_id" id="chapter_id">
+            <option value="new">New Chapter</option>
+            {% for chapter in project.chapters %}
+                <option value="{{ chapter.id }}">{{ chapter.chapter_number }}: {{ chapter.title }}</option>
+            {% endfor %}
+        </select><!--ensure that the value of chapter id is not new, see add_content and story-->
+
+        <label for="title">Chapter Title:</label>
+        <input type="text" name="title" id="title" placeholder="Enter chapter title">
+
+    {% elif project.project_type == "short_story" %}
+        <input type="hidden" name="pageS_id" value="{{ current_page.id if current_page else 'new' }}">
+    
+    {% elif project.project_type == "poem" %}
+        <input type="hidden" name="poem_id" value="{{ current_page.id if current_page else 'new' }}">
+    {% endif %}
+
+    <label for="content">Content:</label>
+    <textarea name="content" id="content" rows="6" placeholder="Write your content here..." required></textarea>
+
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

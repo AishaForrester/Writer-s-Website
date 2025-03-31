@@ -1,13 +1,66 @@
 {% extends "base.html" %}
 {% block title %} Profile {% endblock %}
-{% block css %} <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> {% endblock%}
+{% block css %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+{% endblock %}
+{% block cssbackup %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='contentstyles.css') }}"> 
+{% endblock%}
 
 {% block header %}
     {% include "nav_in.html" %}
 {% endblock %}
 
 {% block main %}
-{# include "contentsignedin.html"#} 
+<div class="profContainer">
+
+    <div class="profile-content">
+        <div class="personal-info">
+            <div class="profile-pic">
+                <img src="{{ url_for('static', filename= 'uploads/' + user.image) }}" alt="profile picture">
+            </div>
+            <div class="profile-details">
+                <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+                <h3> @ {{ user.username }}</h3>
+                <p><strong>Age:</strong> {{ user.age }}</p>
+                <p><strong>Gender:</strong> {{ user.gender }}</p>
+                <p><strong>Bio:</strong> {{ user.bio }}</p>
+            </div>
+        </div>
+
+        <div class="explore-card">
+            <!--<h2>Projects</h2>-->
+            <!-- Example: Display User Projects -->
+            {% if user.projects %}
+                <div class="explore-container">
+                    {% for project in projects %}
+
+                    <div class="card1">
+                        <!--<a href="#"><img src="../static/images1/soul.jpg" alt="book cover" id="books"></a>-->
+                        <img src="{{ url_for('static', filename='uploads/' + project.image) }}" alt="Project image" id="books">
+                        <div class="bookinfo">
+                            <h3>{{ project.title }}</h3>
+                            <h4>{{ current_user.username }}</h4>
+                            <p>{{ project.genre }}</p>
+                            <h3>{{ project.price }}</h3>
+                            <a href="{{ url_for('projects', project_id = project.id) }}" id="photos-link">read here...</a>
+                        </div><!--end of bookinfo-->
+                    </div> <!--end of card1-->
+
+                        <!--<li class="project-item">
+                            <h5>{{ project.title }}</h5>
+                            <p>{{ project.description }}</p>
+                            <img src="{{ url_for('static', filename='uploads/' + project.image) }}" alt="Project image" class="project-image">
+                        </li>-->
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No projects available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
 {% endblock %}
 
 {% block footer %} 

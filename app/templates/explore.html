@@ -1,13 +1,54 @@
 {% extends "base.html" %}
 {% block title %} Profile {% endblock %}
 {% block css %} <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> {% endblock%}
+{% block cssbackup %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='contentstyles.css') }}"> 
+{% endblock%}
 
 {% block header %}
     {% include "nav_in.html" %}
 {% endblock %}
 
 {% block main %}
-{# include "contentsignedin.html"#} 
+<div class="content">
+
+    <div class="searchfield"> <!--this should be a form, querying the database, use pagination!!!!-->
+        <input type="text" placeholder="Search for books, authors, genres">
+        <button class="btn">Search</button>
+    </div> <!--end of searchfield-->
+
+    <div class="explore-card">
+    
+        <div class="explore-container">
+        {% for project in projects %}
+            <!--<li>{{ project.title }} by {{ project.author }}</li>...NEEDS ITS OWN ROUTE
+            THIS IS FOR READING PURPOSES ONLY< IFU ARE THE AUTHOR THEN U CAN EDIT
+            maybe a div for flex or look at the parent container from contentsigned out, also please
+            think about privacy as this page is displaying all projects in userBooks, add some restriction
+            also for the price, we may have to change the bankend and make it a nullable string. if it is
+            null then it is free, if not we display the price...or check if it is a number...if 
+            it is free then they can read it(poems should not have a price), but if it is not free then 
+            they cant read it--pop up saying the book must be purchased-->
+            <div class="card1">
+                <!--<a href="#"><img src="../static/images1/soul.jpg" alt="book cover" id="books"></a>-->
+                <img src="{{ url_for('static', filename='uploads/' + project.cover_image) }}" alt="Project image" id="books">
+                <div class="bookinfo">
+                    <h3>{{ project.title }}</h3>
+                    <h4>{{ current_user.username }}</h4>
+                    <p>{{ project.genre }}</p>
+                    <h3>{{ project.price }}</h3><!--dynamically display number in cart-->
+                    <button>Add to cart</button> <!--style and use asynchronous etc to prevent reload-->
+                    {{ project.id }} <!-- Debugging line to see project.id -->
+                    <a href="{{ url_for('projects', project_id = project.project_id) }}" id="photos-link">read here...</a>
+                </div><!--end of bookinfo-->
+            </div> <!--end of card1-->
+        {% endfor %}
+        </div>
+    
+    
+    </div>
+
+</div>
 {% endblock %}
 
 {% block footer %} 

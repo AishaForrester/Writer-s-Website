@@ -1,8 +1,8 @@
-
+{# This is apart of Profile.html, rendered by profile() with allProjects and projects #}
 <div class="contentSection" style="background-color: #ebeeee;">
     <div class="image-backdrop">
         <div class="text-overlay">{% if current_user.is_authenticated %}
-            <h4>Welcome back, {{ current_user.username }}</h4>
+            <h4 style="color: pink;">Welcome back, {{ current_user.username }}</h4>
             {% endif %}
         </div>  
     </div>
@@ -15,95 +15,132 @@
 
             <!--First Column (Larger Card-Projects)-->
             <div class="col-12 mt-4 col-md-6 col-lg-8"> <!-- Controls the card's width -->
-            <div class="card">
-              <div class="card-body">
+                <div class="card">
+                <div class="card-body">
 
-                <!--My Projects header and create option-->
-                <div class="card-proj" style="display: flex; justify-content: space-between; position: relative;">
-                    <h5 class="card-title">My Projects</h5>
-                    <div id="createText" style="cursor: pointer; font-size: 1.2rem; color: black;">+ Create</div>
-                </div> <!--end of card-proj-->
+                    <!--My Projects header and create option-->
+                    <div class="card-proj" style="display: flex; justify-content: space-between; position: relative;">
+                        <h5 class="card-title">My Projects</h5>
+                        <div id="createText" style="cursor: pointer; font-size: 1.2rem; color: black;">+ Create</div>
+                    </div> <!--end of card-proj-->
 
-                <hr class="my-4">
+                    <hr class="my-4">
 
-                
+                    
+                    {% if projects | length > 0 %}
+                    <div class="card-text">
+                        <ul class="booklist">
+                            {% for project in projects %}
+                                <li class="book-item">
+                                    <a href="{{ url_for('projects', project_id = project.id) }}"><span class="book-title">{{ project.title }}</span></a>
+                                    <span class="book-time">{{ project.created_at.strftime('%m-%d-%Y') }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <!--here we will have a pop up of all projects-->
+                        <a href=""><p class="card-text"><small class="text-body-secondary">See all</small></p></a>
+                    </div>
+                    {% else %}
+                        <p>No projects yet</p>
+                    {% endif %}
+                    
+                    
+                </div> <!--end of card body-->
+                <!--<img src="{{ url_for('static', filename='../static/images1/profiledash.webp') }}" class="card-img-top" alt="..." style="width: 100%; height: 200px; object-fit: cover;">-->
+                </div> <!--end of card div-->
 
-                
-                
+
+
+
+                <!--blog and communities-->
+                <div class="column"> <!--"row justify-content-between"-->
+
+                    <!--First Column (Communities)-->
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4" style="margin-right: 300px;"> 
+                        <div class="card" style="width: 45rem; height: 33rem;">
+                            <img src="{{ url_for('static', filename='images1/communityImage.png') }}" alt="community" id="blogpic">
+                            <div class="card-body" style="padding: 10px;">
+                                <h4 class="card-title">Community Involvement</h4>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Be apart of the movement</h6>
+                                <p class="card-text">Meet your people and quiet the world. Joining our 
+                                    community means getting the first peak at out upcoming book releases,
+                                    sprints and cool updates. 
+                                </p>
+                                <a href="{{ url_for('login') }}" class="card-link">Writer's Block</a>
+                                <a href="{{ url_for('login') }}" class="card-link">Espresso Book club</a>
+                            </div>
+                        </div>
+                        </div><!-- Communities end-->
             
-                {% if projects | length > 0 %}
-                <div class="card-text">
-                    <ul class="booklist">
-                        {% for project in projects %}
-                            <li class="book-item">
-                                <a href="{{ url_for('projects', project_id = project.id) }}"><span class="book-title">{{ project.title }}</span></a>
-                                <span class="book-time">{{ project.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    <a href="#"><p class="card-text"><small class="text-body-secondary">See all</small></p></a>
-                </div>
-                {% else %}
-                    <p>No projects yet</p>
-                {% endif %}
-                
-                
-            </div> <!--end of card body-->
-              <!--<img src="{{ url_for('static', filename='../static/images1/profiledash.webp') }}" class="card-img-top" alt="..." style="width: 100%; height: 200px; object-fit: cover;">-->
-            </div> <!--end of card div-->
+                        <!--Second Column (Blog Post)-->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4 mb-4">
+                        <div class="card" style="width: 35rem; height: 33rem;">
+                            <img src="{{ url_for('static', filename='images1/blogb.png') }}" alt="blog" id="blogpic">
+                            <div class="card-body" style="padding: 10px;">
+                                
+                                <h5 class="card-title">Blog Post</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Have something to say? Join the conversation</h6>
+                                <p class="card-text">Apply here to join our prestegious team of bloggers.  </p>
+                                <a href="/blog/viewblog.html" class="card-link">Become a Contributor</a>
+                                
+                            </div>
+                        </div>
+                        </div><!-- Blog Post end -->
+            
+                </div><!--end of row justify-content-between for Communities and Blog Post sections"-->
+        
 
         
             </div> <!--Project-->
             
 
-            <!--Second column (smaller card-word count)-->
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4" style="margin-left: 10px; margin-right: 10px;">
+          <!-- Second column (smaller card-word count) -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4" style="margin-left: 10px; margin-right: 10px;">
             <div class="card" style="width: 24rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Word Count</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text...</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <h1>Project Word Count Analysis</h1>
+
+                    <!-- Chart.js Bar Graph -->
+                    <div class="chart-container">
+                        <canvas id="wordCountChart" style="width:100%; height:40%;"></canvas>
+                        <br>
+                        <br>
+                        <hr>
+                        <h1 style="margin-top: 20px;">Average Word Count per Project</h1>
+                        <canvas id="averageWordCountChart"></canvas>
+                    
+                    </div>
+
+                    <!-- List of Project Word Counts (for additional details) 
+                    <div class="word-count-list">
+                        {% for project in project_word_counts %}
+                            <div class="word-count-item">
+                                <span>{{ project.project_title }}</span>
+                                <span>{{ project.total_words }} words</span>
+                            </div>
+                        {% endfor %}
+                    </div>-->
+
+                    <!-- Store the project data in data-* attributes -->
+                    <div id="wordCountData" 
+                        data-project-titles='{{ project_word_counts | map(attribute="project_title") | list | tojson }}' 
+                        data-word-counts='{{ project_word_counts | map(attribute="total_words") | list | tojson }}'
+                        data-average-word-count='{{ average_word_count|tojson }}'>
+                    </div>
+
                 </div>
             </div>
-            </div><!-- end of word count column -->
+                      
+                    
+                
+            </div> <!-- end of word count column -->
 
             
 
             
         </div> <!--end of row justify-content-between for Projects and word count-->
 
-        <div class="row"> <!--"row justify-content-between"-->
-
-            <!--First Column (Communities)-->
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4" style="margin-right: 300px;"> 
-                <div class="card" style="width: 30rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Communities</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                        <p class="card-text">Some quick example text...</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-                </div><!-- Communities end-->
-    
-                <!--Second Column (Blog Post)-->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4">
-                <div class="card" style="width: 24rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Blog Post</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title...</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-                </div><!-- Blog Post end -->
-    
-        </div><!--end of row justify-content-between for Communities and Blog Post sections"-->
-
+        
 
 
 
@@ -153,9 +190,13 @@
             </div> <!--end of pop up content-->
         </div> <!--end of pop up modal-->
 
-        
+       
     
+
+        
     </div><!--end of container-->
 </div> <!-- End of contentSection -->
+
+
  
 

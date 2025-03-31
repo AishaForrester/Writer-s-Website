@@ -1,6 +1,40 @@
 {% extends "base.html" %}
 {% block title %} Profile {% endblock %}
 {% block css %} <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> {% endblock%}
+{% block cssbackup %} 
+<style>
+    /*.card-body {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }*/
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .chart-container {
+        position: relative;
+        height: 1000px;
+        width: 100%;
+    }
+    .word-count-list {
+        margin-top: 30px;
+    }
+    .word-count-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .word-count-item:last-child {
+        border-bottom: none;
+    }
+    
+</style>
+{% endblock%}
 
 
 {% block header %}
@@ -15,6 +49,28 @@
     {% include "footer.html" %} 
 {% endblock %}
 
+<!-- JavaScript Block (this is where the data will be passed to JS) -->
 {% block js %}
+<!-- Pass data to JavaScript for the Chart -->
+
+
+
+
+<script type="text/javascript">
+    
+    // Retrieve the data from the div
+    const projectDataDiv = document.getElementById('wordCountData');
+    
+    // Parse the JSON data from the data attributes
+    const projectTitles = JSON.parse(projectDataDiv.getAttribute('data-project-titles'));
+    const projectWordCounts = JSON.parse(projectDataDiv.getAttribute('data-word-counts'));
+
+    console.log(projectTitles);  // Check if the data is correct
+    console.log(projectWordCounts);
+
+    // You can now use projectTitles and projectWordCounts to render the chart
+</script>
+
 <script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}

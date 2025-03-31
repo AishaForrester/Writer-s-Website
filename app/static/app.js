@@ -165,3 +165,108 @@ document.addEventListener("DOMContentLoaded", function() {
         timeElement.textContent = formatTime(currentTime);
     }, 60000); // Update every 60 seconds
 });
+
+   // Wait for the DOM to be fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to count words
+    function countWords(text) {
+    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    }
+
+    // Get the textarea and the word count span...start
+    const pageContent = document.getElementById("page_content");
+    //const poemContent = document.getElementById("poem_content");
+    
+    const wordCountDisplay = document.getElementById("wordCount");
+    //const wordCountPoem = document.getElementById("wordCount");
+
+    // Initial word count update (in case there is pre-existing content)
+    wordCountDisplay.textContent = countWords(pageContent.value);
+    //wordCountPoem.textContent = countWords(poemContent.value);
+
+    // Add event listener to update word count as user types: story and novel pages
+    pageContent.addEventListener("input", function() {
+    let wordCount = countWords(pageContent.value);
+    wordCountDisplay.textContent = wordCount;
+    });
+
+    // Add event listener to update word count as user types, poems
+    //poemContent.addEventListener("input", function() {
+        //let wordCount = countWords(poemContent.value);
+        //wordCountPoem.textContent = wordCount;
+        //});
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Retrieve the data from the div
+    const projectDataDiv = document.getElementById('wordCountData');
+
+    // Get the data from the data-* attributes
+    const projectTitles = JSON.parse(projectDataDiv.getAttribute('data-project-titles'));
+    const projectWordCounts = JSON.parse(projectDataDiv.getAttribute('data-word-counts'));
+    const averageWordCount = JSON.parse(projectDataDiv.getAttribute('data-average-word-count'));
+    const range_0_500 = JSON.parse(projectDataDiv.getAttribute('data-range-0-500'));
+    const range_501_1000 = JSON.parse(projectDataDiv.getAttribute('data-range-501-1000'));
+    const range_1001_1500 = JSON.parse(projectDataDiv.getAttribute('data-range-1001-1500'));
+    const range_1500_plus = JSON.parse(projectDataDiv.getAttribute('data-range-1500-plus'));
+
+    console.log(projectTitles);  // Check if the data is correct
+    console.log(projectWordCounts);
+
+    // Word Count Chart Configuration
+    const wordCountData = {
+        labels: projectTitles,
+        datasets: [{
+            label: 'Word Count',
+            data: projectWordCounts,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const wordCountConfig = {
+        type: 'bar',
+        data: wordCountData,
+        options: {
+            responsive: true,
+            indexAxis: 'y',  // Horizontal bar chart
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Word Count'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Project Title'
+                    }
+                }
+            }
+        }
+    };
+
+    const ctx = document.getElementById('wordCountChart').getContext('2d');
+    new Chart(ctx, wordCountConfig);
+
+    // Average Word Count Chart (Pie Chart)
+    const averageWordCountChart = new Chart(document.getElementById('averageWordCountChart').getContext('2d'), {
+        type: 'pie',
+        data: {
+            labels: ['Average Word Count'],
+            datasets: [{
+                data: [averageWordCount],
+                backgroundColor: ['rgba(75, 192, 192, 0.6)'],
+                borderColor: ['rgba(75, 192, 192, 1)'],
+                borderWidth: 1
+            }]
+        }
+    });
+
+   
+});
